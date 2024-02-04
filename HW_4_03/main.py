@@ -1,3 +1,6 @@
+
+# Не звертати увагу ,поки не встиг зробити ,нажаль
+
 from colorama import Fore, Back, Style
 
 import sys
