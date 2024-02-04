@@ -1,3 +1,5 @@
+from pathlib import Path
+
 
 text= ''' 
 "add username phone".
@@ -54,6 +56,16 @@ def usn_ph(args, contacts):
         
 def main():
     contacts = {}
+    try:
+        fh = open("phonebook.txt","r")
+        for line in fh:
+            key, value = line.split()
+            contacts[key.removesuffix(",")] = value
+        #print(contacts)
+        fh.close()
+    except FileNotFoundError:
+        print("\nFile with Phone Book doesn`t exist. If you go on,it will be created.\n")
+
     print("Welcome to the assistant bot!\n(\"Help\"-for help)")
     while True:
         user_input = input("Enter a command: ")
@@ -61,7 +73,13 @@ def main():
 
         if command in ["close", "exit"]:
             print("Good bye!")
+            with open('phonebook.txt', 'w') as fh:
+                for key, value in contacts.items():
+                    fh.write(f'{key}, {value}\n')
             break
+
+
+
         elif command == "hello":
             print("How can I help you?(\"Help\"-for help)")
         elif command == "add":
